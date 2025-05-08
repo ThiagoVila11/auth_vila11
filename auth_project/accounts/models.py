@@ -4,7 +4,12 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
 class Usuario(AbstractUser):
-    # Campos adicionais podem ser adicionados aqui
+    FUNCAO = [
+        ('ADMIN', 'Administrador'),
+        ('GERENTE', 'Gerente'),
+        ('CONSULTOR', 'Consultor'),
+        ('COLABORADOR', 'Colaborador'),
+    ]
     usuarioNome = models.CharField(max_length=100, blank=True)
     usuarioEmail = models.EmailField(verbose_name="E-mail",
                                     max_length=255,
@@ -15,6 +20,7 @@ class Usuario(AbstractUser):
     usuarioDataNascimento = models.DateField(null=True, blank=True)
     usuarioAtivo = models.CharField(max_length=1,default='A')
     usuarioSenhaHash = models.CharField(max_length=128, null=True, blank=True)
+    usuarioFuncao = models.CharField(max_length=20, choices=FUNCAO, null=True, blank=True)
 
     def set_senha(self, senha):
         """Armazena o hash da senha, não a senha em si"""
