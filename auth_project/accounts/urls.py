@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import UsuarioCreateAPIView
+from .views import UsuarioCreateAPIView, UsuarioPorEmailView
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('api/usuarios/cadastrar/', UsuarioCreateAPIView.as_view(), name='cadastrar-usuario'),
     path('api/login/', obtain_auth_token, name='api-login'),  # Para login e obtenção de token
+    path('usuario-por-email/', UsuarioPorEmailView.as_view(), name='usuario_por_email'),
 ]

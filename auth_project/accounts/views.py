@@ -7,6 +7,8 @@ from .models import Usuario
 from .serializers import UsuarioSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 class UsuarioCreateAPIView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
@@ -23,7 +25,7 @@ class UsuarioCreateAPIView(generics.CreateAPIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    
+
 
 def signup(request):
     if request.method == 'POST':
@@ -57,3 +59,18 @@ def user_logout(request):
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
+
+class UsuarioPorEmailView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        nomeusuario = request.query_params.get('nomeusuario')
+        if not nomeusuario:
+            return Response({"erro": "E-mail não fornecido"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            usuario = Usuario.objects.get(username=nomeusuario)
+        except Usuario.DoesNotExist:
+            return Response({"erro": "Usuário não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data, status=status.HTTP_200_OK)
