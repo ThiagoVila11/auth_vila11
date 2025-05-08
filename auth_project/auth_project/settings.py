@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-r&j0l%$y0)=)ft!4!d^f1vm4^x3fl@-sjma200#3o7g=ikzmi1
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Application definition
 
@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'auth_db',         # Nome do banco de dados
-        'USER': 'auth_user',        # Seu usuário PostgreSQL
+        'USER': 'postgres',        # Seu usuário PostgreSQL
         'PASSWORD': '123',   # Sua senha PostgreSQL
         'HOST': 'localhost',       # Ou outro host se necessário
         'PORT': '5432',            # Porta padrão do PostgreSQL
