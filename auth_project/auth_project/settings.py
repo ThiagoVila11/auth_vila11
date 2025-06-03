@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # Para autenticação por token
     'accounts',
+    'corsheaders',  # Para CORS
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Middleware para CORS
 ]
 
 ROOT_URLCONF = 'auth_project.urls'
@@ -76,6 +78,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'auth_project.wsgi.application'
 
 
+CORS_ALLOW_ALL_ORIGINS = True  # ou use CORS_ALLOWED_ORIGINS com domínios específicos
+
+# Se precisar de métodos específicos
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 DATABASES = {
     'default': {
